@@ -10,7 +10,7 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 background = pygame.image.load("images/background.png")
 clock = pygame.time.Clock()
 level = Level(level_map, screen)
-pygame.display.set_caption("WizardGame")
+pygame.display.set_caption("Dawn of Malevolence")
 
 while True:
     for event in pygame.event.get():

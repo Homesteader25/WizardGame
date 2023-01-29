@@ -1,14 +1,14 @@
 level_map = [
-    '  E                        E   ',
-    '  E                        E   ',
-    '  E                        E   ',
-    '  E                        E   ',
-    '  E                        E   ',
-    '  E                        E   ',
-    '  E       XXX      XXX     E   ',
-    '  E                        E   ',
-    '  E P                      E   ',
-    'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX']
+    ' WW                        WW ',
+    ' WW                        WW ',
+    ' WW                        WW ',
+    ' WW                        WW ',
+    ' WW                        WW ',
+    ' WW         E        E     WW ',
+    ' WW       XXX      XXX     WW ',
+    ' WW                        WW ',
+    ' WW P           E          WW ',
+    'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX']
 
 tile_size = 50
 WIDTH = 500

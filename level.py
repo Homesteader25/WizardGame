@@ -2,6 +2,7 @@ import pygame
 from tiles import Tile
 from settings import tile_size, WIDTH
 from player import Player
+from enemy import *
 
 
 class Level:
@@ -19,6 +20,7 @@ class Level:
 
         self.tiles = pygame.sprite.Group()
         self.player = pygame.sprite.GroupSingle()
+        self.enemy_group = pygame.sprite.Group()
 
         for row_index, row in enumerate(layout):
             for col_index, cell in enumerate(row):
@@ -26,18 +28,22 @@ class Level:
                 y = row_index * tile_size
 
                 if cell == 'X':
-                    code = True
+                    code = "tile"
                     tile = Tile((x, y), tile_size, code)
                     self.tiles.add(tile)
-                if cell == "E":
-                    code = False
+                if cell == "W":
+                    code = "wall"
                     tile = Tile((x, y), tile_size, code)
                     self.tiles.add(tile)
                 if cell == 'P':
                     player_sprite = Player((x, y))
                     self.player.add(player_sprite)
+                if cell == "E":
+                    enemy_sprite = Enemy((x, y))
+                    self.enemy_group.add(enemy_sprite)
 
     # camera scroll
+
     def scroll_x(self):
 
         player = self.player.sprite
@@ -47,9 +53,11 @@ class Level:
         if player_x < WIDTH - WIDTH + 150 and direction_x < 0:
             self.world_shift = 6
             player.speed = 0
+
         elif player_x > WIDTH - 150 and direction_x > 0:
             self.world_shift = -6
             player.speed = 0
+
         else:
             self.world_shift = 0
             player.speed = 6
@@ -96,3 +104,7 @@ class Level:
         self.horizontal_movement_collision()
         self.vertical_movement_collision()
         self.player.draw(self.display_surface)
+
+        # enemy
+        self.enemy_group.draw(self.display_surface)
+        self.enemy_group.update(self.world_shift)
