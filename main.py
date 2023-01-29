@@ -15,7 +15,6 @@ while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
-
             sys.exit()
 
     # set background color to our window
@@ -25,3 +24,5 @@ while True:
     # Update our window
     pygame.display.update()
     clock.tick(60)
+
+#VIDEO: https://www.youtube.com/watch?v=YWN8GcmJ-jA#
