@@ -26,7 +26,12 @@ class Level:
                 y = row_index * tile_size
 
                 if cell == 'X':
-                    tile = Tile((x, y), tile_size)
+                    code = True
+                    tile = Tile((x, y), tile_size, code)
+                    self.tiles.add(tile)
+                if cell == "E":
+                    code = False
+                    tile = Tile((x, y), tile_size, code)
                     self.tiles.add(tile)
                 if cell == 'P':
                     player_sprite = Player((x, y))

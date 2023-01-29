@@ -7,6 +7,7 @@ from level import Level
 # Pygame setup
 pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
+background = pygame.image.load("images/background.png")
 clock = pygame.time.Clock()
 level = Level(level_map, screen)
 pygame.display.set_caption("WizardGame")
@@ -18,7 +19,7 @@ while True:
             sys.exit()
 
     # set background color to our window
-    screen.fill('black')
+    screen.blit(background, (0, 0))
     level.run()
 
     # Update our window
