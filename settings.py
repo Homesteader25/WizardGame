@@ -13,4 +13,3 @@ level_map = [
 tile_size = 50
 WIDTH = 500
 HEIGHT = len(level_map) * tile_size
-print(HEIGHT)
