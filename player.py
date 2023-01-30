@@ -1,5 +1,6 @@
 import pygame
 from support import import_folder
+from projectile import Projectile
 
 
 class Player(pygame.sprite.Sprite):
@@ -20,11 +21,11 @@ class Player(pygame.sprite.Sprite):
 
         # player status
         self.status = 'idle'
-        self.facing_right = True
         self.on_ground = False
         self.on_ceiling = False
         self.on_left = False
         self.on_right = False
+        self.facing_right = True
 
     def import_character_assets(self):
         character_path = 'images/character/'
@@ -46,7 +47,7 @@ class Player(pygame.sprite.Sprite):
         image = animation[int(self.frame_index)]
         if self.facing_right:
             self.image = image
-        else:
+        elif self.facing_right == False:
             flipped_image = pygame.transform.flip(image, True, False)
             self.image = flipped_image
 

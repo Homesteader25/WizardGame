@@ -11,10 +11,12 @@ class Level:
     # default function when Level is instansialized
     def __init__(self, level_data, surface):
         self.previous_time = pygame.time.get_ticks()
+        self.damage_time = pygame.time.get_ticks()
         # level setup
         self.display_surface = surface
         self.setup_level(level_data)
         self.world_shift = 0
+        self.health = 3
 
     # sets position of tiles as well as the player
     def setup_level(self, layout):
@@ -45,7 +47,6 @@ class Level:
                     self.enemy_group.add(enemy_sprite)
 
     # camera scroll
-
     def scroll_x(self):
 
         player = self.player.sprite
@@ -67,6 +68,8 @@ class Level:
     def horizontal_movement_collision(self):
         player = self.player.sprite
         player.rect.x += player.direction.x * player.speed
+        enemy = self.enemy_group
+        bullet = self.bullet_group
 
         for sprite in self.tiles.sprites():
             if sprite.rect.colliderect(player.rect):
@@ -74,6 +77,19 @@ class Level:
                     player.rect.left = sprite.rect.right
                 elif player.direction.x > 0:
                     player.rect.right = sprite.rect.left
+
+        for sprite in bullet:
+            pygame.sprite.spritecollide(sprite, enemy, True)
+
+        for sprite in enemy:
+            if sprite.rect.colliderect(player.rect):
+                self.current_time = pygame.time.get_ticks()
+                if self.current_time - self.damage_time > 1000:
+                    self.damage_time = self.current_time
+                    self.health -= 1
+                    if self.health < 1:
+                        pygame.quit()
+                    print(self.health)
 
     def vertical_movement_collision(self):
         player = self.player.sprite
@@ -95,7 +111,6 @@ class Level:
         if player.on_ceiling and player.direction.y > 0:
             player.on_ceiling = False
 
-    # Crashes if player does not move before firing.
     def iceBall(self):
         keys = pygame.key.get_pressed()
         player = self.player.sprite

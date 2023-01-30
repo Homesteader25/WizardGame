@@ -12,7 +12,7 @@ class Enemy(pygame.sprite.Sprite):
 
         # enemy movement
         self.direction = -1
-        self.speed = randint(2, 3)
+        self.speed = 3
         self.gravity = 0.8
         self.jump_speed = -16
         self.move_counter = 0
@@ -20,7 +20,7 @@ class Enemy(pygame.sprite.Sprite):
     def movement(self):
         self.rect.x += self.direction * self.speed
         self.move_counter += 1
-        if self.move_counter > randint(30, 50):
+        if self.move_counter > 40:
             self.direction *= -1
             flipped_image = pygame.transform.flip(self.image, True, False)
             self.image = flipped_image

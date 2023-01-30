@@ -4,9 +4,9 @@ level_map = [
     ' WW                        WW ',
     ' WW                        WW ',
     ' WW                        WW ',
-    ' WW         E        E     WW ',
-    ' WW       XXX      XXX     WW ',
-    ' WW                        WW ',
+    ' WW         E              WW ',
+    ' WW       XXX          E   WW ',
+    ' WW                  XXX   WW ',
     ' WW P           E          WW ',
     'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX']
 
