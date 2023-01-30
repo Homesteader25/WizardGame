@@ -2,14 +2,15 @@ import pygame
 from tiles import Tile
 from settings import tile_size, WIDTH
 from player import Player
-from enemy import *
+from enemy import Enemy
+from projectile import Projectile
 
 
 class Level:
 
     # default function when Level is instansialized
     def __init__(self, level_data, surface):
-
+        self.previous_time = pygame.time.get_ticks()
         # level setup
         self.display_surface = surface
         self.setup_level(level_data)
@@ -21,6 +22,7 @@ class Level:
         self.tiles = pygame.sprite.Group()
         self.player = pygame.sprite.GroupSingle()
         self.enemy_group = pygame.sprite.Group()
+        self.bullet_group = pygame.sprite.Group()
 
         for row_index, row in enumerate(layout):
             for col_index, cell in enumerate(row):
@@ -93,6 +95,28 @@ class Level:
         if player.on_ceiling and player.direction.y > 0:
             player.on_ceiling = False
 
+    # Crashes if player does not move before firing.
+    def iceBall(self):
+        keys = pygame.key.get_pressed()
+        player = self.player.sprite
+        player_x = player.rect.centerx
+        player_y = player.rect.centery
+
+        if keys[pygame.K_RIGHT]:
+            self.facing_right = True
+        elif keys[pygame.K_LEFT]:
+            self.facing_right = False
+
+        if keys[pygame.K_SPACE]:
+            self.current_time = pygame.time.get_ticks()
+            try:
+                if self.current_time - self.previous_time > 500:
+                    bullet = Projectile(player_x, player_y, self.facing_right)
+                    self.bullet_group.add(bullet)
+                    self.previous_time = self.current_time
+            except:
+                print("Must move first")
+
     def run(self):
         # level tiles
         self.tiles.update(self.world_shift)
@@ -108,3 +132,8 @@ class Level:
         # enemy
         self.enemy_group.draw(self.display_surface)
         self.enemy_group.update(self.world_shift)
+
+        # projectile
+        self.iceBall()
+        self.bullet_group.draw(self.display_surface)
+        self.bullet_group.update(self.world_shift)
