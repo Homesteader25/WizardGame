@@ -17,6 +17,7 @@ class Enemy(pygame.sprite.Sprite):
         self.jump_speed = -16
         self.move_counter = 0
 
+    # Move back and forth
     def movement(self):
         self.rect.x += self.direction * self.speed
         self.move_counter += 1

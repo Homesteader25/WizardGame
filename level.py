@@ -18,7 +18,7 @@ class Level:
         self.world_shift = 0
         self.health = 3
 
-    # sets position of tiles as well as the player
+    # sets position of tiles as well as the player, enemies, and invisible walls.
     def setup_level(self, layout):
 
         self.tiles = pygame.sprite.Group()
@@ -65,6 +65,7 @@ class Level:
             self.world_shift = 0
             player.speed = 6
 
+    # Horizontal Collision Detection
     def horizontal_movement_collision(self):
         player = self.player.sprite
         player.rect.x += player.direction.x * player.speed
@@ -78,6 +79,7 @@ class Level:
                 elif player.direction.x > 0:
                     player.rect.right = sprite.rect.left
 
+        # Detect collisions between sprites and enemies by looping through the sprite groups.
         for sprite in bullet:
             pygame.sprite.spritecollide(sprite, enemy, True)
 
@@ -91,6 +93,7 @@ class Level:
                         pygame.quit()
                     print(self.health)
 
+    # Vertical Collision Detection
     def vertical_movement_collision(self):
         player = self.player.sprite
         player.apply_gravity()
@@ -111,6 +114,7 @@ class Level:
         if player.on_ceiling and player.direction.y > 0:
             player.on_ceiling = False
 
+    # Fire ice attack only after having moved first.
     def iceBall(self):
         keys = pygame.key.get_pressed()
         player = self.player.sprite

@@ -24,5 +24,3 @@ while True:
     # Update our window
     pygame.display.update()
     clock.tick(60)
-
-#VIDEO: https://www.youtube.com/watch?v=YWN8GcmJ-jA#
